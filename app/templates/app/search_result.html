@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>matZipCloud</title>
+    {% load static %}
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/search_result.css' %}">
+</head>
+<body>
+    {% load static %}
+    <nav class="navbar">
+        <i class="fas fa-bars"></i>
+        <h1>matZipCloud</h1>
+        <i class="fas fa-user"></i>
+    </nav>
+    <div class="sidebar">
+        <button class="btn btn-danger btn-circle"><i class="fas fa-plus"></i></button>
+    </div>
+    <div class="container content">
+
+        <div class="search-bar">
+            <input type="text" class="form-control" placeholder="">
+            <i class="fas fa-search"></i>
+        </div>
+
+        <div class="white-container">
+            <div class="header-image">
+                <h2>Keyword</h2>
+                <p>Subtitle</p>
+                <div class="header-buttons">
+                    <button class="btn btn-primary"><i class="fas fa-map-marker-alt"></i> Add to my itinerary</button>
+                    <button class="btn btn-secondary"><i class="fas fa-walking"></i> 12 mins from hotel</button>
+                </div>
+            </div>
+            <div class="sort-buttons mt-3">
+                <button class="active sort-left">거리순</button>
+                <button class="sort-right">리뷰순</button>
+            </div>
+            <div class="item-list mt-3">
+                <div class="item">
+                    <img src="#" alt="업체 이미지">
+                    <div class="content">
+                        <h5>업체명</h5>
+                        <p>리뷰수 388 · 거리 1.2 km<br>업체 리뷰 한줄 요약이 들어가는 부분입니다.</p>
+                    </div>
+                    <i class="far fa-heart icon"></i>
+                </div>
+                <div class="item">
+                    <img src="#" alt="업체 이미지">
+                    <div class="content">
+                        <h5>업체명</h5>
+                        <p>리뷰수 388 · 거리 1.2 km<br>업체 리뷰 한줄 요약이 들어가는 부분입니다.</p>
+                    </div>
+                    <i class="far fa-heart icon"></i>
+                </div>
+                <div class="item">
+                    <img src="#" alt="업체 이미지">
+                    <div class="content">
+                        <h5>업체명</h5>
+                        <p>리뷰수 388 · 거리 1.2 km<br>업체 리뷰 한줄 요약이 들어가는 부분입니다.</p>
+                    </div>
+                    <i class="far fa-heart icon"></i>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <footer class="mt-5 foot">
+        <img src="{% static 'images/matZip-textLogo.png' %}" alt="matZip textLogo">
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="{% static 'js/sort-buttons.js' %}"></script>
+</body>
+</html>

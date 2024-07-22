@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>matZipCloud</title>
+    {% load static %}
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/search_detail.css' %}">
+</head>
+<body>
+    {% load static %}
+    <nav class="navbar">
+        <i class="fas fa-bars"></i>
+        <h1>matZipCloud</h1>
+        <i class="fas fa-user"></i>
+    </nav>
+    <div class="sidebar">
+        <button class="btn btn-danger btn-circle"><i class="fas fa-plus"></i></button>
+    </div>
+    <div class="container content">
+
+        <div class="search-bar">
+            <input type="text" class="form-control" placeholder="">
+            <i class="fas fa-search"></i>
+        </div>
+
+        <div class="white-container">
+            <div class="sub-nav">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                <p>가게 이름</p>
+            </div>
+            <div class="main-content">
+                <img src="#" alt="가게 이미지">
+                <div class="content-detail">
+                    <h5>개별 가게 이름이 들어가는 부분입니다.</h5>
+                    <p class="small-font">Published date</p>
+                    <p>업체정보가 들어가는 부분입니다.</p>
+                    <p>개별업체 리뷰 요약이 들어가는 부분입니다.</p>
+                    <button>길찾기 연결</button>
+                </div>
+            </div>
+            <div class="cloud-Img">
+                <img src="{% static 'images/Happy Cloud.png' %}" alt="HappyCloud">
+                <img src="{% static 'images/Sad Cloud.png' %}" alt="SadCloud">
+            </div>
+            <div class="review-nav">
+                <p>최근 리뷰 (5개)</p>
+                <i class="fa fa-arrow-right" aria-hidden="true"></i>
+            </div>
+            <div class="review-list">
+                <div class="review-item">
+                    <img src="#" alt="유저 이미지">
+                    <div class="content">
+                        <h5>User ID</h5>
+                        <p>User review['contents'] 가 들어가는 부분입니다.</p>
+                    </div>
+                    <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                </div>
+                <div class="review-item">
+                    <img src="#" alt="유저 이미지">
+                    <div class="content">
+                        <h5>User ID</h5>
+                        <p>User review['contents'] 가 들어가는 부분입니다.</p>
+                    </div>
+                    <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                </div>
+                <div class="review-item">
+                    <img src="#" alt="유저 이미지">
+                    <div class="content">
+                        <h5>User ID</h5>
+                        <p>User review['contents'] 가 들어가는 부분입니다.</p>
+                    </div>
+                    <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                </div>
+                <div class="review-item">
+                    <img src="#" alt="유저 이미지">
+                    <div class="content">
+                        <h5>User ID</h5>
+                        <p>User review['contents'] 가 들어가는 부분입니다.</p>
+                    </div>
+                    <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                </div>
+                <div class="review-item">
+                    <img src="#" alt="유저 이미지">
+                    <div class="content">
+                        <h5>User ID</h5>
+                        <p>User review['contents'] 가 들어가는 부분입니다.</p>
+                    </div>
+                    <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <footer class="mt-5 foot">
+        <img src="{% static 'images/matZip-textLogo.png' %}" alt="matZip textLogo">
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="{% static 'js/sort-buttons.js' %}"></script>
+</body>
+</html>

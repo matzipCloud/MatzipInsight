@@ -1,0 +1,161 @@
+body {
+    background-color: #f9f7fb;
+    text-align: center;
+}
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+.navbar h1 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+.search-bar {
+    margin: 40px 0 40px auto;
+    max-width: 350px;
+    position: relative;
+}
+.search-bar input {
+    width: 100%;
+    height: 50px;
+    padding: 10px;
+    border-radius: 150px; /* 둥근 모서리 */
+    border: 1px solid #ccc;
+    padding-right: 40px; /* 돋보기 아이콘 공간 확보 */
+}
+.search-bar .fa-search {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #888;
+}
+.white-container{
+    padding: 20px;
+    border-radius: 20px;
+    background-color: white;
+}
+.sidebar {
+    position: fixed;
+    top: 60px; /* Adjust based on your navbar height */
+    left: 0;
+    width: 60px;
+    height: calc(100% - 60px); /* Adjust based on your navbar height */
+    background-color: white;
+    padding: 10px;
+}
+.sidebar .btn {
+    width: 100%;
+    margin-bottom: 10px;
+}
+.content {
+    margin-top: 80px; /* 네비게이션 바 아래로 충분히 공간 주기 */
+    padding-left: 80px; /* 사이드바와 겹치지 않도록 패딩 추가 */
+}
+.header-image {
+    width: 100%;
+    height: 200px;
+    background-color: #ccc;
+    position: relative;
+    text-align: left;
+    padding: 20px;
+    background-image: url("{% static 'images/mapImage.png' %}"); /* 이미지 경로를 지정하세요 */
+    background-size: cover;
+    background-position: center;
+    border-radius: 15px; /* 모서리 둥글게 */
+    box-shadow: inset 0 -50px 50px -20px rgba(0,0,0,0.5); /* 그림자 효과 */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* 하단 정렬 */
+}
+.header-image h2 {
+    font-weight: bold;
+    color: white;
+}
+.header-image p {
+    color: white;
+}
+.header-content {
+    color: white;
+}
+.header-buttons .btn {
+    margin-right: 10px;
+    background-color: white;
+    color: #6f42c1; /* 버튼 아이콘과 텍스트 색상 */
+    border: none;
+    border-radius: 10px;
+}
+.header-buttons .btn i {
+    margin-right: 5px;
+}
+
+.sort-buttons {
+    padding: 20px;
+    display: inline-flex;
+    overflow: hidden;
+}
+.sort-buttons button {
+    border: 1px solid #888;
+    padding: 5px 30px;
+    cursor: pointer;
+    background-color: transparent;
+}
+.sort-buttons .sort-left{
+    border-radius: 50px 0 0 50px;
+}
+.sort-buttons .sort-right{
+    border-radius: 0 50px 50px 0;
+}
+.sort-buttons button.active {
+    background-color: #e6dff0;
+}
+.sort-buttons button:not(:last-child) {
+    border-right: 1px solid #ccc;
+}
+.item-list .item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #fff;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+.item img {
+    width: 50px;
+    height: 50px;
+    background-color: #ccc;
+    border-radius: 10px;
+    margin-right: 10px;
+}
+.item .content {
+    margin: auto 0 auto 0;
+    text-align: left;
+    flex-grow: 1;
+    justify-content: start;
+}
+.item .content h5 {
+    margin: 0;
+}
+.item .content p {
+    margin: 0;
+    color: #888;
+}
+.item .icon {
+    color: #888;
+    cursor: pointer;
+}
+.foot img{
+    width: 80px;
+    height: 30px;
+}

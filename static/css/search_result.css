@@ -155,6 +155,9 @@ body {
     color: #888;
     cursor: pointer;
 }
+.foot{
+    margin-bottom: 15px;
+}
 .foot img{
     width: 80px;
     height: 30px;

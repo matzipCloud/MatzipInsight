@@ -30,6 +30,7 @@
                     <i class="fa fa-arrow-left" aria-hidden="true"></i>
                     <p>{{ result.Name }}</p>
                 </div>
+
                 <div class="main-content">
                     <img src="{% static 'images/shop1.png' %}" alt="가게 이미지">
                     <div class="content-detail">
@@ -38,6 +39,8 @@
                         <p>{{ result.Category }}</p>
                         <button>길찾기 연결</button>
                     </div>
+                </div>
+                
                 </div>
                 <div class="cloud-Img">
                     <img src="{% static 'images/Happy Cloud.png' %}" alt="HappyCloud">
@@ -52,7 +55,7 @@
                     <div class="review-item">
                         <img src="{% static 'images/userImg.png' %}" alt="유저 이미지">
                         <div class="content">
-                            <h5>{{ review.user }}</h5>
+                            <h5>{{ review.nickname }}</h5>
                             <p>{{ review.content }}</p>
                         </div>
                         <i class="fa fa-ellipsis-v" aria-hidden="true"></i>

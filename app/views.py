@@ -1,4 +1,9 @@
 from django.shortcuts import render
+from bs4 import BeautifulSoup
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+import time
 import json
 import requests
 try:
@@ -44,7 +49,8 @@ def search_result(request):
             name = item.get('name')
             address = item.get('address')
             category = item.get('category')
-            results.append({'restaurant_id': index, 'id': id, 'Name': name, 'Address': address, 'Category': category})
+            thumUrl = item.get('thumUrl')
+            results.append({'restaurant_id': id, 'Name': name, 'Address': address, 'Category': category, 'thumUrl': thumUrl})
 
         # 검색 결과를 context에 추가
         context['results'] = results
@@ -54,6 +60,7 @@ def search_result(request):
 
     return render(request, 'app/search_result.html', context)
 
+
 def search_detail(request, id):
     # 세션에서 검색 결과 가져오기
     results = request.session.get('search_results', [])
@@ -62,4 +69,57 @@ def search_detail(request, id):
     result = next((item for item in results if item['id'] == str(id)), None)
 
     context = {'result': result}
+
+    # 리뷰 데이터를 저장할 리스트 초기화
+    reviews = []
+
+    try:
+        # Selenium을 사용하여 리뷰 페이지 크롤링
+        driver = webdriver.Chrome()
+        res = driver.get(f'https://m.place.naver.com/restaurant/{id}/review/visitor')
+        driver.implicitly_wait(20)
+
+        # Pagedown
+        time.sleep(5)
+        driver.find_element(By.TAG_NAME, 'body').send_keys(Keys.END)
+
+        # 최대 5개의 리뷰를 가져오기 위한 루프
+        while len(reviews) < 5:
+            try:
+                driver.find_element(By.XPATH, '//*[@id="app-root"]/div/div/div/div[6]/div[2]/div[3]/div[2]/div/a').click()
+                time.sleep(0.5)
+            except Exception as e:
+                print('finish')
+                break
+
+            # 크롤링
+            html = driver.page_source
+            bs = BeautifulSoup(html, 'html.parser')
+            review_elements = bs.select('li.owAeM')
+
+            for review in review_elements:
+                if len(reviews) >= 5:
+                    break
+                # 개별 콘텐츠 선택하여 읽어들이는 부분
+                nickname = review.select_one('span.P9EZi')
+                content = review.select_one('span.zPfVt')
+                date = review.select_one('span.CKUdu > span.place_blind:nth-of-type(2)')
+                revisit = review.select_one('span.CKUdu:nth-of-type(2)')
+
+                # 예외 처리
+                nickname = nickname.text if nickname else ''
+                content = content.text if content else ''
+                date = date.text if date else ''
+                revisit = revisit.text if revisit else ''
+
+                reviews.append({'nickname': nickname, 'content': content, 'date': date, 'revisit': revisit})
+                time.sleep(0.05)
+
+        context['reviews'] = reviews
+
+    except Exception as e:
+        print(e)
+    finally:
+        driver.quit()
+
     return render(request, 'app/search_detail.html', context)

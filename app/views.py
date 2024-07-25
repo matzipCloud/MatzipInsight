@@ -34,7 +34,7 @@ def search_result(request):
         response = requests.get(url, headers=headers, params=params)
         response.raise_for_status()  # 요청 실패 시 에러 발생
         data = response.json()
-
+        
         # 검색 결과를 저장할 리스트 초기화
         results = []
 
@@ -48,12 +48,18 @@ def search_result(request):
 
         # 검색 결과를 context에 추가
         context['results'] = results
+        
+        # 검색 결과를 세션에 저장
+        request.session['search_results'] = results
 
     return render(request, 'app/search_result.html', context)
 
-def search_detail(request, restaurant_id):
-    with open('app/data/restaurants.json', 'r', encoding='utf-8') as f:
-        restaurants = json.load(f)
-        restaurant = restaurants[restaurant_id]
-        context = {'restaurant': restaurant}
+def search_detail(request, id):
+    # 세션에서 검색 결과 가져오기
+    results = request.session.get('search_results', [])
+    
+    # id를 문자열로 변환 후 검색
+    result = next((item for item in results if item['id'] == str(id)), None)
+
+    context = {'result': result}
     return render(request, 'app/search_detail.html', context)

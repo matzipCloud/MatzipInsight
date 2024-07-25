@@ -39,7 +39,7 @@
                     {% for result in results %}
                         <div class="item">
                             <div class="content">
-                                <h5><a href="{% url 'app:search_detail' result.restaurant_id %}">{{ result.Name }}</a></h5>
+                                <h5><a href="{% url 'app:search_detail' result.id %}">{{ result.Name }}</a></h5>
                                 <p>{{ result.Category }}</p>
                                 <p>{{ result.Address }}</p>
                             </div>

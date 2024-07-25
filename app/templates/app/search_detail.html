@@ -25,40 +25,43 @@
             <i class="fas fa-search"></i>
         </div>
         <div class="white-container">
-            <div class="sub-nav">
-                <i class="fa fa-arrow-left" aria-hidden="true"></i>
-                <p>{{ restaurant.Name }}</p>
-            </div>
-            <div class="main-content">
-                <img src="{% static 'images/shop1.png' %}" alt="가게 이미지">
-                <div class="content-detail">
-                    <h5>{{ restaurant.Name }}</h5>
-                    <p class="small-font">Published date</p>
-                    <p>{{ restaurant.Address }}</p>
-                    <p>{{ restaurant.Category }}</p>
-                    <button>길찾기 연결</button>
+            {% if result %}
+                <div class="sub-nav">
+                    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                    <p>{{ result.Name }}</p>
                 </div>
-            </div>
-            <div class="cloud-Img">
-                <img src="{% static 'images/Happy Cloud.png' %}" alt="HappyCloud">
-                <img src="{% static 'images/Sad Cloud.png' %}" alt="SadCloud">
-            </div>
-            <div class="review-nav">
-                <p>최근 리뷰 (5개)</p>
-                <i class="fa fa-arrow-right" aria-hidden="true"></i>
-            </div>
-            <div class="review-list">
-                {% for review in reviews %}
-                <div class="review-item">
-                    <img src="{% static 'images/userImg.png' %}" alt="유저 이미지">
-                    <div class="content">
-                        <h5>{{ review.user }}</h5>
-                        <p>{{ review.content }}</p>
+                <div class="main-content">
+                    <img src="{% static 'images/shop1.png' %}" alt="가게 이미지">
+                    <div class="content-detail">
+                        <h5>{{ result.Name }}</h5>
+                        <p>{{ result.Address }}</p>
+                        <p>{{ result.Category }}</p>
+                        <button>길찾기 연결</button>
                     </div>
-                    <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                 </div>
-                {% endfor %}
-            </div>
+                <div class="cloud-Img">
+                    <img src="{% static 'images/Happy Cloud.png' %}" alt="HappyCloud">
+                    <img src="{% static 'images/Sad Cloud.png' %}" alt="SadCloud">
+                </div>
+                <div class="review-nav">
+                    <p>최근 리뷰 (5개)</p>
+                    <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                </div>
+                <div class="review-list">
+                    {% for review in reviews %}
+                    <div class="review-item">
+                        <img src="{% static 'images/userImg.png' %}" alt="유저 이미지">
+                        <div class="content">
+                            <h5>{{ review.user }}</h5>
+                            <p>{{ review.content }}</p>
+                        </div>
+                        <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p>레스토랑 정보가 없습니다.</p>
+            {% endif %}
         </div>
     </div>
     <footer class="mt-5 foot">

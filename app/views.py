@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.options import Options
 import time
 import json
 import requests
@@ -75,7 +76,12 @@ def search_detail(request, id):
 
     try:
         # Selenium을 사용하여 리뷰 페이지 크롤링
-        driver = webdriver.Chrome()
+        user_agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36'
+        options = Options()
+        options.add_argument("--headless=new")
+        options.add_argument('user-agent=' + user_agent)
+        driver = webdriver.Chrome(options=options)
+        
         res = driver.get(f'https://m.place.naver.com/restaurant/{id}/review/visitor')
         driver.implicitly_wait(20)
 

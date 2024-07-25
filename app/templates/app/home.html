@@ -22,7 +22,9 @@
         </div>
         <div class="search-bar mt-5">
             <i class="fas fa-search"></i>
-            <input type="text" class="form-control" placeholder="">
+            <form action="{% url 'app:search_result' %}" method="get">
+                <input type="text" name="query" class="form-control" placeholder="">
+            </form>
         </div>
         <div class="keywords">
             <p>인기 키워드</p>

@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="{% static 'css/search_result.css' %}">
 </head>
 <body>
-    {% load static %}
     <nav class="navbar">
         <i class="fas fa-bars"></i>
         <h1>matZipCloud</h1>
@@ -20,58 +19,43 @@
         <button class="btn btn-danger btn-circle"><i class="fas fa-plus"></i></button>
     </div>
     <div class="container content">
-
         <div class="search-bar">
-            <input type="text" class="form-control" placeholder="">
-            <i class="fas fa-search"></i>
+            <form action="{% url 'app:search_result' %}" method="get">
+                <input type="text" name="query" class="form-control" value="{{ query }}" placeholder="맛집 검색">
+                <i class="fas fa-search"></i>
+            </form>
         </div>
-
         <div class="white-container">
-            <div class="header-image">
-                <h2>Keyword</h2>
-                <p>Subtitle</p>
-                <div class="header-buttons">
-                    <button class="btn btn-primary"><i class="fas fa-map-marker-alt"></i> Add to my itinerary</button>
-                    <button class="btn btn-secondary"><i class="fas fa-walking"></i> 12 mins from hotel</button>
+            {% if results %}
+                <div class="header-image">
+                    <h2>{{ query }}</h2>
+                    <p>검색 결과</p>
                 </div>
-            </div>
-            <div class="sort-buttons mt-3">
-                <button class="active sort-left">거리순</button>
-                <button class="sort-right">리뷰순</button>
-            </div>
-            <div class="item-list mt-3">
-                <div class="item">
-                    <img src="{% static 'images/shop1.png' %}" alt="업체 이미지">
-                    <div class="content">
-                        <h5>업체명</h5>
-                        <p>리뷰수 388 · 거리 1.2 km<br>업체 리뷰 한줄 요약이 들어가는 부분입니다.</p>
-                    </div>
-                    <i class="far fa-heart icon"></i>
+                <div class="sort-buttons mt-3">
+                    <button class="active sort-left">거리순</button>
+                    <button class="sort-right">리뷰순</button>
                 </div>
-                <div class="item">
-                    <img src="{% static 'images/shop2.png' %}" alt="업체 이미지">
-                    <div class="content">
-                        <h5>업체명</h5>
-                        <p>리뷰수 388 · 거리 1.2 km<br>업체 리뷰 한줄 요약이 들어가는 부분입니다.</p>
-                    </div>
-                    <i class="far fa-heart icon"></i>
+                <div class="item-list mt-3">
+                    {% for result in results %}
+                        <div class="item">
+                            <div class="content">
+                                <h5><a href="{% url 'app:search_detail' result.restaurant_id %}">{{ result.Name }}</a></h5>
+                                <p>{{ result.Category }}</p>
+                                <p>{{ result.Address }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
                 </div>
-                <div class="item">
-                    <img src="{% static 'images/shop3.png' %}" alt="업체 이미지">
-                    <div class="content">
-                        <h5>업체명</h5>
-                        <p>리뷰수 388 · 거리 1.2 km<br>업체 리뷰 한줄 요약이 들어가는 부분입니다.</p>
-                    </div>
-                    <i class="far fa-heart icon"></i>
+            {% else %}
+                <div class="no-results">
+                    <p>검색 결과가 없습니다.</p>
                 </div>
-            </div>
+            {% endif %}
         </div>
-        
     </div>
     <footer class="mt-5 foot">
         <img src="{% static 'images/matZip-textLogo.png' %}" alt="matZip textLogo">
     </footer>
-
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

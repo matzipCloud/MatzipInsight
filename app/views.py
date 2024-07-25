@@ -50,7 +50,7 @@ def search_result(request):
             address = item.get('address')
             category = item.get('category')
             thumUrl = item.get('thumUrl')
-            results.append({'restaurant_id': id, 'Name': name, 'Address': address, 'Category': category, 'thumUrl': thumUrl})
+            results.append({'id': id, 'Name': name, 'Address': address, 'Category': category, 'thumUrl': thumUrl})
 
         # 검색 결과를 context에 추가
         context['results'] = results

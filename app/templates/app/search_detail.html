@@ -32,7 +32,7 @@
                 </div>
 
                 <div class="main-content">
-                    <img src="{% static 'images/shop1.png' %}" alt="가게 이미지">
+                    <img src="{{ result.thumUrl }}">
                     <div class="content-detail">
                         <h5>{{ result.Name }}</h5>
                         <p>{{ result.Address }}</p>

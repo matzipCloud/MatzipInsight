@@ -123,6 +123,7 @@ body {
     border-right: 1px solid #ccc;
 }
 .item-list .item {
+    border: 1px solid red;
     display: flex;
     align-items: center;
     padding: 10px;
@@ -132,28 +133,26 @@ body {
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 .item img {
-    width: 50px;
-    height: 50px;
-    background-color: #ccc;
+    width: 100px;
+    height: 100px;
     border-radius: 10px;
     margin-right: 10px;
 }
 .item .content {
+    width: 80%;
     margin: auto 0 auto 0;
     text-align: left;
     flex-grow: 1;
     justify-content: start;
 }
 .item .content h5 {
-    margin: 0;
+    width: 100%;
+    margin-left: 0;
 }
 .item .content p {
-    margin: 0;
+    width: 100%;
+    margin-left: 0;
     color: #888;
-}
-.item .icon {
-    color: #888;
-    cursor: pointer;
 }
 .foot{
     margin-bottom: 15px;

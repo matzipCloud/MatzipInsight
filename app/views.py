@@ -1,11 +1,13 @@
 from django.shortcuts import render
+from django.http import JsonResponse
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
+from .utils import save_reviews_to_csv
+import os
 import time
-import json
 import requests
 try:
     import pandas as pd
@@ -90,10 +92,10 @@ def search_detail(request, id):
         driver.find_element(By.TAG_NAME, 'body').send_keys(Keys.END)
 
         # 최대 5개의 리뷰를 가져오기 위한 루프
-        while len(reviews) < 5:
+        while len(reviews) < 1000:
             try:
                 driver.find_element(By.XPATH, '//*[@id="app-root"]/div/div/div/div[6]/div[2]/div[3]/div[2]/div/a').click()
-                time.sleep(0.5)
+                time.sleep(0.05)
             except Exception as e:
                 print('finish')
                 break
@@ -104,7 +106,7 @@ def search_detail(request, id):
             review_elements = bs.select('li.owAeM')
 
             for review in review_elements:
-                if len(reviews) >= 5:
+                if len(reviews) >= 1000:
                     break
                 # 개별 콘텐츠 선택하여 읽어들이는 부분
                 nickname = review.select_one('span.P9EZi')
@@ -121,11 +123,13 @@ def search_detail(request, id):
                 reviews.append({'nickname': nickname, 'content': content, 'date': date, 'revisit': revisit})
                 time.sleep(0.05)
 
-        context['reviews'] = reviews
-
+        context['reviews'] = reviews[:5]
+        #파일로 저장
+        save_reviews_to_csv(reviews, id)
     except Exception as e:
         print(e)
     finally:
         driver.quit()
 
     return render(request, 'app/search_detail.html', context)
+

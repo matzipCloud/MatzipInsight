@@ -75,5 +75,8 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="{% static 'js/sort-buttons.js' %}"></script>
+    <script>
+        window.addEventListener('beforeunload', function(){ fetch('/delete_review_file/{{ result.id }}/', {method: 'DELETE'});});
+    </script>
 </body>
 </html>

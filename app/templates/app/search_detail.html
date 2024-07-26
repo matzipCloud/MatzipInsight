@@ -76,7 +76,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="{% static 'js/sort-buttons.js' %}"></script>
     <script>
-        window.addEventListener('beforeunload', function(){ fetch('/delete_review_file/{{ result.id }}/', {method: 'DELETE'});});
+        window.addEventListener('beforeunload', function(){ fetch('{% url 'app:delete_review_file' result.id %}', {method: 'DELETE'});});
     </script>
 </body>
 </html>

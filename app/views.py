@@ -5,7 +5,7 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
-from .utils import save_reviews_to_csv
+from .utils import *
 import os
 import time
 import requests
@@ -95,7 +95,7 @@ def search_detail(request, id):
         driver.find_element(By.TAG_NAME, 'body').send_keys(Keys.END)
 
         # 최대 5개의 리뷰를 가져오기 위한 루프
-        while len(reviews) < 1000:
+        while len(reviews) < 100:
             try:
                 driver.find_element(By.XPATH,
                                     '//*[@id="app-root"]/div/div/div/div[6]/div[2]/div[3]/div[2]/div/a').click()
@@ -110,7 +110,7 @@ def search_detail(request, id):
             review_elements = bs.select('li.owAeM')
 
             for review in review_elements:
-                if len(reviews) >= 1000:
+                if len(reviews) >= 100:
                     break
                 # 개별 콘텐츠 선택하여 읽어들이는 부분
                 nickname = review.select_one('span.P9EZi')
@@ -129,7 +129,11 @@ def search_detail(request, id):
 
         context['reviews'] = reviews[:5]
         #파일로 저장
-        save_reviews_to_csv(reviews, id)
+        csv_file = save_reviews_to_csv(reviews, id)
+        #워드클라우드
+        cloud = make_cloud(csv_file, id)
+        context['img'] = "/"+cloud
+
     except Exception as e:
         print(e)
     finally:
@@ -143,8 +147,12 @@ def delete_review_file(request, id):
     filename = f'reviews_{id}.csv'
     filepath = os.path.join('data/', filename)
 
+    imgname = f'cloud_{id}.png'
+    imgpath = os.path.join('static/images', imgname)
+
     if os.path.exists(filepath):
         os.remove(filepath)
+        os.remove(imgpath)
         return JsonResponse({'status': 'success'})
     else:
         return JsonResponse({'status': 'file not found'}, status=404)

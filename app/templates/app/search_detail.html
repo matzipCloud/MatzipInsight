@@ -43,7 +43,7 @@
                 
                 </div>
                 <div class="cloud-Img">
-                    <img src="{% static 'images/Happy Cloud.png' %}" alt="HappyCloud">
+                    <img src="{{ img }}" alt="HappyCloud">
                     <img src="{% static 'images/Sad Cloud.png' %}" alt="SadCloud">
                 </div>
                 <div class="review-nav">
@@ -76,14 +76,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="{% static 'js/sort-buttons.js' %}"></script>
     <script>
-        window.addEventListener('beforeunload', function(){
-            fetch('/delete_review_file/{{ result.id }}/', {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-        });
-    </script>    
+        window.addEventListener('beforeunload', function(){ fetch('{% url 'app:delete_review_file' result.id %}', {method: 'DELETE'});});
+    </script>
 </body>
 </html>

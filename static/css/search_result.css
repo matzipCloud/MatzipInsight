@@ -15,6 +15,62 @@ body {
     left: 0;
     z-index: 1000;
 }
+/* 핑의 기본 스타일 */
+.custom-pin {
+    position: relative;
+    display: inline-block;
+    padding: 5px 8px;
+    background: #fff; /* 배경색을 흰색으로 설정 */
+    border: 2px solid #e6dff0; /* 보더 색상과 두께 */
+    border-radius: 12px; /* 둥근 모서리 */
+    color: #000; /* 텍스트 색상 */
+    font-size: 14px;
+    font-weight: bold; /* 텍스트 두께 */
+    width: auto; /* 너비 자동 조절 */
+    max-width: 150px; /* 최대 너비 */
+    white-space: nowrap; /* 텍스트 줄 바꿈 방지 */
+    overflow: hidden; /* 넘치는 텍스트 숨기기 */
+    text-overflow: ellipsis; /* 텍스트가 길 경우 "..."으로 표시 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* 그림자 추가 */
+}
+
+/* 핑의 말풍선 꼬리 */
+.custom-pin::after {
+    content: '';
+    position: absolute;
+    bottom: -10px; /* 말풍선 본체와 간격 조정 */
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 10px;
+    border-style: solid;
+    border-color: #fff transparent transparent transparent; /* 꼬리의 색상과 투명도 */
+}
+
+/* 말풍선 본체의 오버플로우 문제 해결 */
+.custom-pin-container {
+    position: relative;
+    display: inline-block;
+}
+
+.custom-pin {
+    position: relative;
+    z-index: 1; /* 말풍선 본체가 꼬리보다 위에 있도록 설정 */
+}
+
+/* 말풍선 꼬리의 위치를 조정하기 위한 컨테이너 */
+.custom-pin-container::after {
+    content: '';
+    position: absolute;
+    bottom: -10px; /* 말풍선 본체와 간격 조정 */
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 10px;
+    border-style: solid;
+    border-color: #fff transparent transparent transparent; /* 꼬리의 색상과 투명도 */
+    z-index: 0; /* 꼬리가 본체 뒤에 있도록 설정 */
+}
+
+
 .navbar h1 {
     margin: 0;
     font-size: 1.5rem;
@@ -69,7 +125,6 @@ body {
     position: relative;
     text-align: left;
     padding: 20px;
-    background-image: url("{% static 'images/mapImage.png' %}"); /* 이미지 경로를 지정하세요 */
     background-size: cover;
     background-position: center;
     border-radius: 15px; /* 모서리 둥글게 */
@@ -123,7 +178,6 @@ body {
     border-right: 1px solid #ccc;
 }
 .item-list .item {
-    border: 1px solid red;
     display: flex;
     align-items: center;
     padding: 10px;

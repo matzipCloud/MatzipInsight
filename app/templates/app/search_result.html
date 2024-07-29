@@ -8,6 +8,11 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="{% static 'css/search_result.css' %}">
+    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=gnfz1xoi62"></script>
+    <script>
+        var mapData = {{ results|slice:":7" | safe }};  // 상위 10개 데이터만 포함
+    </script>
+    <script src="static/js/map.js"></script>
 </head>
 <body>
     <nav class="navbar">
@@ -27,10 +32,10 @@
         </div>
         <div class="white-container">
             {% if results %}
-                <div class="header-image">
-                    <h2>{{ query }}</h2>
-                    <p>검색 결과</p>
-                </div>
+            <div class="header-image" id="map">
+                <h2>{{ query }}</h2>
+                <p>검색 결과</p>
+            </div>
                 <div class="sort-buttons mt-3">
                     <button class="active sort-left">거리순</button>
                     <button class="sort-right">리뷰순</button>
@@ -61,5 +66,6 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="{% static 'js/sort-buttons.js' %}"></script>
+    <script src="{% static 'js/map.js' %}"></script>
 </body>
 </html>

@@ -1,5 +1,7 @@
 from django.shortcuts import render
+from django.conf import settings
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -56,7 +58,17 @@ def search_result(request):
             address = item.get('address')
             category = item.get('category')
             thumUrl = item.get('thumUrl')
-            results.append({'id': id, 'Name': name, 'Address': address, 'Category': category, 'thumUrl': thumUrl})
+            latitude = item.get('y')  # API 응답에서 latitude 값을 가져옴
+            longitude = item.get('x')  # API 응답에서 longitude 값을 가져옴
+            results.append({
+                'id': id, 
+                'Name': name, 
+                'Address': address, 
+                'Category': category, 
+                'thumUrl': thumUrl,
+                'latitude': latitude,
+                'longitude': longitude
+            })
 
         # 검색 결과를 context에 추가
         context['results'] = results
@@ -137,14 +149,25 @@ def search_detail(request, id):
 
     return render(request, 'app/search_detail.html', context)
 
-
+@csrf_exempt
 def delete_review_file(request, id):
-
     filename = f'reviews_{id}.csv'
-    filepath = os.path.join('data/', filename)
+    filepath = os.path.join('data', filename)
+
+    print(f"Attempting to delete file: {filepath}")  # 디버그 메시지 추가
 
     if os.path.exists(filepath):
         os.remove(filepath)
+        print(f"File deleted: {filepath}")  # 디버그 메시지 추가
         return JsonResponse({'status': 'success'})
     else:
+        print(f"File not found: {filepath}")  # 디버그 메시지 추가
         return JsonResponse({'status': 'file not found'}, status=404)
+    
+def map_view(request):
+    context = {
+        'naver_client_id': settings.NAVER_CLIENT_ID,
+        'results': [],  # 여기서는 예시로 빈 리스트를 사용
+        'query': ''     # 예시로 빈 문자열을 사용
+    }
+    return render(request, 'app/search_result.html', context)

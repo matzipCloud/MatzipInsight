@@ -8,13 +8,14 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="{% static 'css/search_result.css' %}">
-    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=gnfz1xoi62"></script>
+    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId={{ ncpClientId }}"></script>
     <script>
         var mapData = {{ results|slice:":7" | safe }};  // 상위 10개 데이터만 포함
     </script>
     <script src="static/js/map.js"></script>
 </head>
 <body>
+    {% include 'app/loading.html' %}
     <nav class="navbar">
         <i class="fas fa-bars"></i>
         <h1>matZipCloud</h1>

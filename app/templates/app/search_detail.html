@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{% static 'css/search_detail.css' %}">
 </head>
 <body>
+    {% include 'app/loading.html' %}
     {% load static %}
     <nav class="navbar">
         <i class="fas fa-bars"></i>
@@ -43,8 +44,8 @@
                 
                 </div>
                 <div class="cloud-Img">
-                    <img src="{{ img }}" alt="HappyCloud">
-                    <img src="{% static 'images/Sad Cloud.png' %}" alt="SadCloud">
+                    <img src="{% static cloud_positive %}" alt="Positive Cloud">
+                    <img src="{% static cloud_negative %}" alt="Negative Cloud">
                 </div>
                 <div class="review-nav">
                     <p>최근 리뷰 (5개)</p>

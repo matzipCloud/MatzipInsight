@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
-from dotenv import load_dotenv
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -130,11 +129,3 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# .env 파일 경로 설정
-dotenv_path = Path(__file__).resolve().parent.parent / '.env'
-load_dotenv(dotenv_path)
-
-# 환경 변수 로드
-NAVER_CLIENT_ID = os.getenv('NAVER_CLIENT_ID')
-NAVER_CLIENT_SECRET = os.getenv('NAVER_CLIENT_SECRET')

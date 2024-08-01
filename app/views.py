@@ -1,8 +1,7 @@
 from django.shortcuts import render
-from django.conf import settings
 from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
+from dotenv import load_dotenv
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -26,6 +25,10 @@ def home(request):
 
 
 def search_result(request):
+    """
+    사용자로부터 검색어를 받아 네이버 지도 API를 통해 검색 결과를 가져옵니다.
+    검색 결과를 세션에 저장하고, 검색 결과를 템플릿에 전달합니다.
+    """
     query = request.GET.get('query')  # 사용자로부터 검색어를 가져옴
     context = {'query': query}
     if query:
@@ -73,6 +76,11 @@ def search_result(request):
 
         # 검색 결과를 context에 추가
         context['results'] = results
+        
+        # .env 파일 context에 추가
+        load_dotenv()
+        ncpClientId = os.environ.get('NAVER_CLIENT_ID')
+        context['ncpClientId'] = ncpClientId
 
         # 검색 결과를 세션에 저장
         request.session['search_results'] = results
@@ -81,6 +89,10 @@ def search_result(request):
 
 
 def search_detail(request, id):
+    """
+    선택된 식당의 상세 정보를 보여줍니다.
+    리뷰를 크롤링하고, 긍정 및 부정 리뷰에 대한 워드 클라우드를 생성합니다.
+    """
     # 세션에서 검색 결과 가져오기
     results = request.session.get('search_results', [])
 
@@ -100,17 +112,18 @@ def search_detail(request, id):
         options.add_argument('user-agent=' + user_agent)
         driver = webdriver.Chrome(options=options)
 
-        res = driver.get(f'https://m.place.naver.com/restaurant/{id}/review/visitor')
+        # 식당 리뷰 페이지 열기
+        driver.get(f'https://m.place.naver.com/restaurant/{id}/review/visitor')
         driver.implicitly_wait(20)
-
-        # Pagedown
+        
+        # 페이지를 스크롤하여 리뷰 더 불러오기
         time.sleep(5)
         driver.find_element(By.TAG_NAME, 'body').send_keys(Keys.END)
 
-        # 최대 5개의 리뷰를 가져오기 위한 루프
-
+        # 최대 100개의 리뷰를 가져오기 위한 루프
         while len(reviews) < 100:
             try:
+                # "더보기" 버튼 클릭
                 driver.find_element(By.XPATH,
                                     '//*[@id="app-root"]/div/div/div/div[6]/div[2]/div[3]/div[2]/div/a').click()
                 time.sleep(0.05)
@@ -118,22 +131,21 @@ def search_detail(request, id):
                 print('finish')
                 break
 
-            # 크롤링
+            # 페이지 소스를 가져와서 파싱
             html = driver.page_source
             bs = BeautifulSoup(html, 'html.parser')
             review_elements = bs.select('li.owAeM')
 
             for review in review_elements:
-
                 if len(reviews) >= 100:
                     break
-                # 개별 콘텐츠 선택하여 읽어들이는 부분
+                # 개별 리뷰 내용 추출
                 nickname = review.select_one('span.P9EZi')
                 content = review.select_one('span.zPfVt')
                 date = review.select_one('span.CKUdu > span.place_blind:nth-of-type(2)')
                 revisit = review.select_one('span.CKUdu:nth-of-type(2)')
 
-                # 예외 처리
+                # 리뷰 데이터 정제
                 nickname = nickname.text if nickname else ''
                 content = content.text if content else ''
                 date = date.text if date else ''
@@ -142,32 +154,58 @@ def search_detail(request, id):
                 reviews.append({'nickname': nickname, 'content': content, 'date': date, 'revisit': revisit})
                 time.sleep(0.05)
 
-        context['reviews'] = reviews[:5]
-        
-        #파일로 저장
+        context['reviews'] = reviews[:5]  # 리뷰 상위 5개만 표시
+
+        # 리뷰 데이터를 CSV 파일로 저장
         csv_file = save_reviews_to_csv(reviews, id)
-        #워드클라우드
-        cloud = make_cloud(csv_file, id)
-        context['img'] = "/"+cloud
+        
+        # 긍정 및 부정 리뷰 워드 클라우드 생성
+        cloud_positive, cloud_negative = generate_wordclouds(csv_file, id)
+        
+        context['cloud_positive'] = "images/" + cloud_positive
+        context['cloud_negative'] = "images/" + cloud_negative
 
     except Exception as e:
         print(e)
     finally:
-        driver.quit()
+        driver.quit()  # 드라이버 종료
 
     return render(request, 'app/search_detail.html', context)
 
+
 def delete_review_file(request, id):
+    """
+    리뷰 CSV 파일과 워드 클라우드 이미지를 삭제합니다.
+    """
+    # 파일 경로 설정
+    filenames = [
+        f'reviews_{id}.csv',
+        f'positive_reviews_{id}.csv',
+        f'negative_reviews_{id}.csv',
+        f'cloud_{id}.png',
+        'cloud_positive.png',  # 추가된 파일
+        'cloud_negative.png'   # 추가된 파일
+    ]
+    
+    filepaths = [os.path.join('data/', filename) for filename in filenames[:3]] + [os.path.join('static/images', filename) for filename in filenames[3:]]
 
-    filename = f'reviews_{id}.csv'
-    filepath = os.path.join('data/', filename)
+    deleted_files = []
+    not_found_files = []
 
-    imgname = f'cloud_{id}.png'
-    imgpath = os.path.join('static/images', imgname)
+    for filepath in filepaths:
+        if os.path.exists(filepath):
+            os.remove(filepath)
+            deleted_files.append(filepath)
+        else:
+            not_found_files.append(filepath)
 
-    if os.path.exists(filepath):
-        os.remove(filepath)
-        os.remove(imgpath)
-        return JsonResponse({'status': 'success'})
+    # 응답 생성
+    if deleted_files:
+        response_data = {
+            'status': 'success',
+            'deleted_files': deleted_files,
+            'not_found_files': not_found_files
+        }
+        return JsonResponse(response_data)
     else:
-        return JsonResponse({'status': 'file not found'}, status=404)
+        return JsonResponse({'status': 'no files found'}, status=404)

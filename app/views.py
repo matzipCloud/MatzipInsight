@@ -91,10 +91,10 @@ def search_detail(request, id):
         driver.implicitly_wait(20)
 
         # Pagedown
-        time.sleep(5)
+        time.sleep(2)
         driver.find_element(By.TAG_NAME, 'body').send_keys(Keys.END)
 
-        # 최대 5개의 리뷰를 가져오기 위한 루프
+        # 최대 n개의 리뷰를 가져오기 위한 루프
         while len(reviews) < 100:
             try:
                 driver.find_element(By.XPATH,
@@ -127,12 +127,27 @@ def search_detail(request, id):
                 reviews.append({'nickname': nickname, 'content': content, 'date': date, 'revisit': revisit})
                 time.sleep(0.05)
 
-        context['reviews'] = reviews[:5]
-        #파일로 저장
-        csv_file = save_reviews_to_csv(reviews, id)
-        #워드클라우드
-        cloud = make_cloud(csv_file, id)
-        context['img'] = "/"+cloud
+        # context['reviews'] = reviews[:5]
+        print("크롤링 완료")
+        #감성분석
+        p_df, n_df, positive_img, negative_img = sentiment_cloud(reviews)
+
+        #긍정 리뷰가 없을때 예외처리
+        if p_df.empty:
+            context['positiveness'] = []
+        else:
+            context['positiveness'] = p_df[:5].to_dict(orient='records')
+
+        #부정 리뷰가 없을때 예외처리
+        if p_df.empty:
+            context['negativeness'] = []
+        else:
+            context['negativeness'] = n_df[:5].to_dict(orient='records')
+            print(n_df.head())
+
+        context['positive_img'] = 'images/'+positive_img
+        context['negative_img'] = 'images/'+negative_img
+        print("구름생성완료")
 
     except Exception as e:
         print(e)
@@ -144,15 +159,18 @@ def search_detail(request, id):
 
 def delete_review_file(request, id):
 
-    filename = f'reviews_{id}.csv'
-    filepath = os.path.join('data/', filename)
+    filename = 'positive_cloud.png'
+    filepath = os.path.join('static/images', filename)
 
-    imgname = f'cloud_{id}.png'
-    imgpath = os.path.join('static/images', imgname)
+    filename1 = 'negative_cloud.png'
+    filepath1 = os.path.join('static/images', filename1)
+
+    # imgname = f'cloud_{id}.png'
+    # imgpath = os.path.join('static/images', imgname)
 
     if os.path.exists(filepath):
         os.remove(filepath)
-        os.remove(imgpath)
+        os.remove(filepath1)
         return JsonResponse({'status': 'success'})
     else:
         return JsonResponse({'status': 'file not found'}, status=404)

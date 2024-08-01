@@ -43,24 +43,51 @@
                 
                 </div>
                 <div class="cloud-Img">
-                    <img src="{{ img }}" alt="HappyCloud">
-                    <img src="{% static 'images/Sad Cloud.png' %}" alt="SadCloud">
+                    <img src="{% static positive_img %}" alt="HappyCloud">
+                    {% if negative_img %}
+                    <img src="{% static negative_img %}" alt="SadCloud">
+                        {% else %}
+                        <img src="{% static 'images/Sad Cloud.png' %}" alt="SadCloud">
+                    {% endif %}
                 </div>
                 <div class="review-nav">
-                    <p>최근 리뷰 (5개)</p>
+                    <p>긍정 최근 리뷰 (5개)</p>
                     <i class="fa fa-arrow-right" aria-hidden="true"></i>
                 </div>
                 <div class="review-list">
-                    {% for review in reviews %}
+                    {% for positive in positiveness %}
                     <div class="review-item">
                         <img src="{% static 'images/userImg.png' %}" alt="유저 이미지">
                         <div class="content">
-                            <h5>{{ review.nickname }}</h5>
-                            <p>{{ review.content }}</p>
+                            <h5>{{ positive.nickname }}</h5>
+                            <p>{{ positive.content }}</p>
                         </div>
                         <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                     </div>
                     {% endfor %}
+                </div>
+                <div class="review-nav">
+                    <p>부정 최근 리뷰 (5개)</p>
+                    <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                </div>
+                <div class="review-list">
+                {% if  negativeness %}
+                    {% for negative in negativeness %}
+                        <div class="review-item">
+                            <img src="{% static 'images/userImg.png' %}" alt="유저 이미지">
+                            <div class="content">
+                                <h5>{{ negative.nickname }}</h5>
+                                <p>{{ negative.content }}</p>
+                            </div>
+                            <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                        </div>
+                    {% endfor %}
+                    {% else %}
+                    <div class="review-item">
+                        <div class="content">
+                            <p>부정 리뷰가 없습니다 :)</p>
+                        </div>
+                    {% endif %}
                 </div>
             {% else %}
                 <p>레스토랑 정보가 없습니다.</p>

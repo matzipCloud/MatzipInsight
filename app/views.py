@@ -9,7 +9,6 @@ from .utils import *
 import os
 import time
 import requests
-
 try:
     import pandas as pd
 except ImportError as e:
@@ -131,6 +130,9 @@ def search_detail(request, id):
         print("크롤링 완료")
         #감성분석
         p_df, n_df, positive_img, negative_img = sentiment_cloud(reviews)
+        #중복제거
+        p_df.drop_duplicates(inplace=True)
+        n_df.drop_duplicates(inplace=True)
 
         #긍정 리뷰가 없을때 예외처리
         if p_df.empty:

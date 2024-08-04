@@ -128,11 +128,15 @@ def search_detail(request, id):
 
         # context['reviews'] = reviews[:5]
         print("크롤링 완료")
-        #감성분석
-        p_df, n_df, positive_img, negative_img = sentiment_cloud(reviews)
+
+        df_reviews = pd.DataFrame(reviews)
+        #재방문 바 그래프
+        context['graph'] = 'images/'+revisit_bargraph(df_reviews)
+
         #중복제거
-        p_df.drop_duplicates(inplace=True)
-        n_df.drop_duplicates(inplace=True)
+        df_reviews.drop_duplicates(inplace=True)
+        #감성분석
+        p_df, n_df, positive_img, negative_img = sentiment_cloud(df_reviews)
 
         #긍정 리뷰가 없을때 예외처리
         if p_df.empty:

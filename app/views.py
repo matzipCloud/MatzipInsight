@@ -84,6 +84,10 @@ def search_detail(request, id):
         options = Options()
         options.add_argument("--headless=new")
         options.add_argument('user-agent=' + user_agent)
+        #위치정보 허용
+        options.add_experimental_option("prefs", {
+            "profile.default_content_setting_values.geolocation": 1
+        })
         driver = webdriver.Chrome(options=options)
 
         res = driver.get(f'https://m.place.naver.com/restaurant/{id}/review/visitor')

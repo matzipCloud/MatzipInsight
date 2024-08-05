@@ -134,7 +134,7 @@ def search_detail(request, id):
         driver.find_element(By.TAG_NAME, 'body').send_keys(Keys.END)
 
         # 최대 n개의 리뷰를 가져오기 위한 루프
-        while len(reviews) < 100:
+        while len(reviews) < 500:
             try:
                 driver.find_element(By.XPATH,
                                     '//*[@id="app-root"]/div/div/div/div[6]/div[2]/div[3]/div[2]/div/a').click()
@@ -149,7 +149,7 @@ def search_detail(request, id):
             review_elements = bs.select('li.owAeM')
 
             for review in review_elements:
-                if len(reviews) >= 100:
+                if len(reviews) >= 500:
                     break
                 # 개별 콘텐츠 선택하여 읽어들이는 부분
                 nickname = review.select_one('span.P9EZi')
@@ -203,19 +203,16 @@ def search_detail(request, id):
 
 
 def delete_review_file(request, id):
+    filenames = ['positive_cloud.png', 'negative_cloud.png', 'bargraph.png']
+    filepaths = [os.path.join('static/images', filename) for filename in filenames]
 
-    filename = 'positive_cloud.png'
-    filepath = os.path.join('static/images', filename)
+    files_deleted = False
+    for filepath in filepaths:
+        if os.path.exists(filepath):
+            os.remove(filepath)
+            files_deleted = True
 
-    filename1 = 'negative_cloud.png'
-    filepath1 = os.path.join('static/images', filename1)
-
-    # imgname = f'cloud_{id}.png'
-    # imgpath = os.path.join('static/images', imgname)
-
-    if os.path.exists(filepath):
-        os.remove(filepath)
-        os.remove(filepath1)
+    if files_deleted:
         return JsonResponse({'status': 'success'})
     else:
         return JsonResponse({'status': 'file not found'}, status=404)

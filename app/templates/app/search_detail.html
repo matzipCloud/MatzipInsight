@@ -22,8 +22,10 @@
     </div>
     <div class="container content">
         <div class="search-bar">
-            <input type="text" class="form-control" placeholder="">
-            <i class="fas fa-search"></i>
+            <form action="{% url 'app:search_result' %}" method="get">
+                <input type="text" name="query" class="form-control" value="{{ query }}" placeholder="맛집 검색">
+                <i class="fas fa-search"></i>
+            </form>
         </div>
         <div class="white-container">
             {% if result %}
@@ -38,31 +40,80 @@
                         <h5>{{ result.Name }}</h5>
                         <p>{{ result.Address }}</p>
                         <p>{{ result.Category }}</p>
-                        <button>길찾기 연결</button>
+                        <button id="directions-button">길찾기 연결</button>
                     </div>
                 </div>
                 
-                </div>
                 <div class="cloud-Img">
-                    <img src="{% static cloud_positive %}" alt="Positive Cloud">
-                    <img src="{% static cloud_negative %}" alt="Negative Cloud">
-                </div>
-                <div class="review-nav">
-                    <p>최근 리뷰 (5개)</p>
-                    <i class="fa fa-arrow-right" aria-hidden="true"></i>
-                </div>
-                <div class="review-list">
-                    {% for review in reviews %}
-                    <div class="review-item">
-                        <img src="{% static 'images/userImg.png' %}" alt="유저 이미지">
-                        <div class="content">
-                            <h5>{{ review.nickname }}</h5>
-                            <p>{{ review.content }}</p>
-                        </div>
-                        <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                    <div class="cloud-item">
+                        <h6>☁️ 긍정 워드클라우드</h6>
+                        {% if positive_img %}
+                        <img src="{% static positive_img %}" alt="positive_img">
+                        {% else %}
+                        <img src="{% static 'images/Happy Cloud.png' %}" alt="HappyCloud">
+                        {% endif %}
                     </div>
-                    {% endfor %}
+                    <div class="cloud-item">
+                        <h6>☁️ 부정 워드클라우드</h6>
+                        {% if negative_img %}
+                        <img src="{% static negative_img %}" alt="negative_img">
+                        {% else %}
+                        <img src="{% static 'images/Sad Cloud.png' %}" alt="SadCloud">
+                        {% endif %}
+                    </div>
                 </div>
+                
+                <div class="review-container">
+                    <div class="review-column">
+                        <div class="review-nav">
+                            <p>긍정 최근 리뷰 (5개)</p>
+                            <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                        </div>
+                        <div class="review-list">
+                            {% if positiveness %}
+                                {% for positive in positiveness %}
+                                <div class="review-item">
+                                    <div class="content">
+                                        <h5>{{ positive.nickname }}</h5>
+                                        <p>{{ positive.content }}</p>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            {% else %}
+                                <div class="review-item">
+                                    <div class="content">
+                                        <p>긍정 리뷰가 없습니다 :)</p>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="review-column">
+                        <div class="review-nav">
+                            <p>부정 최근 리뷰 (5개)</p>
+                            <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                        </div>
+                        <div class="review-list">
+                            {% if negativeness %}
+                                {% for negative in negativeness %}
+                                <div class="review-item">
+                                    <div class="content">
+                                        <h5>{{ negative.nickname }}</h5>
+                                        <p>{{ negative.content }}</p>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            {% else %}
+                                <div class="review-item">
+                                    <div class="content">
+                                        <p>부정 리뷰가 없습니다 :(</p>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                
             {% else %}
                 <p>레스토랑 정보가 없습니다.</p>
             {% endif %}
@@ -77,7 +128,18 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="{% static 'js/sort-buttons.js' %}"></script>
     <script>
-        window.addEventListener('beforeunload', function(){ fetch('{% url 'app:delete_review_file' result.id %}', {method: 'DELETE'});});
+        document.getElementById('directions-button').addEventListener('click', function() {
+            var destination = '{{ result.Address }}';
+            var url = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(destination)}`;
+            window.open(url, '_blank');
+        });
+
+        window.addEventListener('beforeunload', function(){ 
+            fetch('{% url 'app:delete_review_file' result.id %}', {method: 'DELETE'});
+        });
+        window.addEventListener('load', function() {
+            document.getElementById('loading').style.display = 'none';
+        });
     </script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 body {
-    background-color: #f9f7fb;
+    background-color: #fbfbe8;
     text-align: center;
 }
 .navbar {
@@ -48,7 +48,7 @@ body {
 .sub-nav{
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 .sub-nav p{
     margin: auto auto auto 20px;
@@ -58,6 +58,8 @@ body {
 .main-content{
     display: flex;
     padding: 10px;
+    margin-top: 30px;
+    margin-bottom: 60px;
 }
 .main-content img{
     width: 190px;
@@ -83,13 +85,48 @@ body {
     border-radius: 50px;
     padding: 8px 25px;
 }
-.cloud-Img{
+
+/* 워드 클라우드 이미지 스타일 */
+.cloud-Img {
     display: flex;
-    justify-content: space-evenly;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 20px; /* 워드 클라우드 간 간격 추가 */
+    position: relative;
 }
-.cloud-Img img{
-    margin: 20px;
-    width: 100%;
+
+.cloud-item {
+    flex: 0 1 48%;
+    text-align: center; /* 텍스트를 중앙 정렬 */
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.cloud-item h6 {
+    position: absolute;
+    top: 30px; /* 이미지 위에 겹쳐지도록 위치 조정 */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(225, 212, 237, 0.7); /* 반투명 배경색으로 텍스트 가독성 향상 */
+    padding: 8px 10px;
+    border-radius: 50px; /* 모서리 둥글게 */
+    z-index: 1; /* 이미지 위에 겹쳐지도록 */
+    white-space: nowrap; /* 텍스트를 한 줄로 유지 */
+    overflow: hidden; /* 넘치는 텍스트를 숨김 */
+    text-overflow: ellipsis; /* 넘치는 부분을 생략기호(...)로 표시 */
+}
+
+.cloud-item img {
+    max-width: 100%;
+    height: auto;
+    display: block; /* 이미지가 부모 요소의 크기에 맞게 조정 */
+}
+
+/* 화면이 작아질 때 세로 정렬 */
+@media (max-width: 768px) {
+    .cloud-item {
+        flex: 0 1 100%;
+    }
 }
 
 .review-nav{
@@ -98,9 +135,69 @@ body {
     margin-bottom: 10px;
     align-items: center;
 }
+/* 공통 스타일 */
+.review-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+.review-column {
+    flex: 0 1 48%;
+    box-sizing: border-box;
+}
+
+/* 화면이 작아질 때 세로 정렬 */
+@media (max-width: 768px) {
+    .review-column {
+        flex: 0 1 100%;
+    }
+}
+
+/* 리뷰 아이템 스타일 */
+.review-item {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    justify-content: center;
+}
+
+.review-item i{
+    padding: 10px;
+    border-radius: 500px;
+    background-color: #e6dff0;
+    margin-left: 20px;
+}
+
+.review-item .content {
+    flex-grow: 1;
+}
+
+.review-item .fa-ellipsis-v {
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+/* 추가적인 스타일 */
+.review-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.review-list {
+    border: 1px solid #fff;
+    padding: 10px;
+    border-radius: 30px;
+}
+
+
+
 .review-nav p{
-    margin: auto 10px auto 10px;
-    font-size: 15px;
+    margin: auto 10px 10px 10px;
+    font-size: 20px;
     font-weight: bold;
 }
 
@@ -113,7 +210,7 @@ body {
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
-.review-item img {
+.review-item i {
     width: 50px;
     height: 50px;
     border-radius: 10px;
@@ -129,6 +226,7 @@ body {
     margin: 0;
 }
 .review-item .content p {
+    font-size: 15px;
     margin: 0;
     color: #888;
 }

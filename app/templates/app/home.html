@@ -29,9 +29,9 @@
         </div>
         <div class="keywords">
             <p>인기 키워드</p>
-            <span class="badge badge-secondary">키워드1</span>
-            <span class="badge badge-secondary">키워드2</span>
-            <span class="badge badge-secondary">키워드3</span>
+            <a href="{% url 'app:search_result' %}?query=맛집">맛집</a>
+            <a href="{% url 'app:search_result' %}?query=주변 맛집">주변 맛집</a>
+            <a href="{% url 'app:search_result' %}?query=주변 술집">주변 술집</a>
         </div>
     </div>
     <footer class="mt-5 foot">

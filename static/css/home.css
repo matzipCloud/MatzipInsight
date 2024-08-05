@@ -1,5 +1,5 @@
 body {
-    background-color: #f9f7fb;
+    background-color: #fbfbe8;
     text-align: center;
     overflow: hidden; /* 스크롤 없애기 */
 }
@@ -55,7 +55,7 @@ body {
     margin-right: 10px;
     font-weight: 600;
 }
-.keywords span {
+.keywords a {
     display: inline-block;
     margin-right: 5px;
     background-color: #F3EDF7; /* 배경색 변경 */

@@ -1,7 +1,32 @@
 body {
-    background-color: #f9f7fb;
+    background-color: #fbfbe8;
     text-align: center;
 }
+/* 로딩 페이지 스타일 */
+#loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    display: none;
+    z-index: 1000; /* 로딩 페이지의 z-index 값 */
+    justify-content: center;
+    align-items: center;
+}
+
+/* 로딩 페이지가 활성화된 경우 */
+body.loading #loading {
+    display: flex;
+}
+
+/* 전체 화면에서 스크롤 비활성화 */
+body.loading {
+    overflow: hidden;
+}
+
+/* 네비게이션 바 스타일 */
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -13,8 +38,9 @@ body {
     width: 100%;
     top: 0;
     left: 0;
-    z-index: 1000;
+    z-index: 2000; /* 네비게이션 바의 z-index 값, 로딩 페이지보다 높음 */
 }
+
 /* 핑의 기본 스타일 */
 .custom-pin {
     position: relative;
@@ -132,6 +158,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: flex-end; /* 하단 정렬 */
+    z-index: 10;
 }
 .header-image h2 {
     font-weight: bold;

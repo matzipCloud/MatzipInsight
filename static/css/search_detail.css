@@ -1,0 +1,282 @@
+body {
+    background-color: #fbfbe8;
+    text-align: center;
+}
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+.navbar h1 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+.search-bar {
+    margin: 40px 0 40px auto;
+    max-width: 350px;
+    position: relative;
+}
+.search-bar input {
+    width: 100%;
+    height: 50px;
+    padding: 10px;
+    border-radius: 150px; /* 둥근 모서리 */
+    border: 1px solid #ccc;
+    padding-right: 40px; /* 돋보기 아이콘 공간 확보 */
+}
+.search-bar .fa-search {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #888;
+}
+.white-container{
+    padding: 20px;
+    border-radius: 20px;
+    background-color: white;
+}
+.sub-nav{
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+}
+.sub-nav p{
+    margin: auto auto auto 20px;
+    font-size: 20px;
+    font-weight: bold;
+}
+.main-content{
+    display: flex;
+    padding: 10px;
+    margin-top: 30px;
+    margin-bottom: 60px;
+}
+.main-content img{
+    width: 190px;
+    height: 190px;
+    background-color: #ccc;
+    border-radius: 25px;
+}
+.content-detail{
+    margin: auto 0 auto 40px;
+    text-align: left;
+    flex-grow: 1;
+    justify-content: start;
+}
+.content-detail h5{
+    font-weight: 540;
+}
+.content-detail .small-font{
+    font-size: 12px;
+}
+.content-detail button{
+    background-color: #e6dff0;
+    border: none;
+    border-radius: 50px;
+    padding: 8px 25px;
+}
+.graph-container {
+    width: 100%;
+    display: flex;
+    justify-content: center; /* 가운데 정렬 */
+    margin-bottom: 20px; /* 아래쪽 여백 추가 */
+    box-sizing: border-box; /* 패딩과 테두리를 포함하여 크기 계산 */
+}
+
+.graph {
+    width: 100%; /* 컨테이너의 너비에 맞게 조정 */
+    display: block; /* block 요소로 설정 */
+}
+
+/* 워드 클라우드 이미지 스타일 */
+.cloud-Img {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 20px; /* 워드 클라우드 간 간격 추가 */
+    position: relative;
+}
+
+.cloud-item {
+    flex: 0 1 48%;
+    text-align: center; /* 텍스트를 중앙 정렬 */
+    margin-bottom: 20px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.cloud-item h6 {
+    position: absolute;
+    top: 10px; /* 이미지 위에 겹쳐지도록 위치 조정 */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(225, 212, 237, 0.7); /* 반투명 배경색으로 텍스트 가독성 향상 */
+    padding: 8px 10px;
+    border-radius: 50px; /* 모서리 둥글게 */
+    z-index: 1; /* 이미지 위에 겹쳐지도록 */
+    white-space: nowrap; /* 텍스트를 한 줄로 유지 */
+    overflow: hidden; /* 넘치는 텍스트를 숨김 */
+    text-overflow: ellipsis; /* 넘치는 부분을 생략기호(...)로 표시 */
+}
+
+.cloud-item img {
+    max-width: 100%;
+    height: auto;
+    display: block; /* 이미지가 부모 요소의 크기에 맞게 조정 */
+}
+.cloud-item .cloud-none {
+    width: 45%;
+    height: 40%;
+    margin: auto auto;
+    margin-top: 80px;
+}
+
+/* 화면이 작아질 때 세로 정렬 */
+@media (max-width: 768px) {
+    .cloud-item {
+        flex: 0 1 100%;
+    }
+}
+
+.review-nav{
+    display: flex;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    align-items: center;
+}
+/* 공통 스타일 */
+.review-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+.review-column {
+    flex: 0 1 48%;
+    box-sizing: border-box;
+}
+
+/* 화면이 작아질 때 세로 정렬 */
+@media (max-width: 768px) {
+    .review-column {
+        flex: 0 1 100%;
+    }
+}
+
+/* 리뷰 아이템 스타일 */
+.review-item {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    justify-content: center;
+}
+
+.review-item i{
+    padding: 10px;
+    border-radius: 500px;
+    background-color: #e6dff0;
+    margin-left: 20px;
+}
+
+.review-item .content {
+    flex-grow: 1;
+}
+
+.review-item .fa-ellipsis-v {
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+/* 추가적인 스타일 */
+.review-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.review-list {
+    border: 1px solid #fff;
+    padding: 10px;
+    border-radius: 30px;
+}
+
+
+
+.review-nav p{
+    margin: auto 10px 10px 10px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.review-list .review-item{
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #fff;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+.review-item i {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    margin-right: 10px;
+}
+.review-item .content {
+    margin: auto 0 auto 0;
+    text-align: left;
+    flex-grow: 1;
+    justify-content: start;
+}
+.review-item .content h5 {
+    margin: 0;
+}
+.review-item .content p {
+    font-size: 15px;
+    margin: 0;
+    color: #888;
+}
+.review-item .icon {
+    color: #888;
+    cursor: pointer;
+}
+.sidebar {
+    position: fixed;
+    top: 60px; /* Adjust based on your navbar height */
+    left: 0;
+    width: 60px;
+    height: calc(100% - 60px); /* Adjust based on your navbar height */
+    background-color: white;
+    padding: 10px;
+}
+.sidebar .btn {
+    width: 100%;
+    margin-bottom: 10px;
+}
+.content {
+    margin-top: 80px; /* 네비게이션 바 아래로 충분히 공간 주기 */
+    padding-left: 80px; /* 사이드바와 겹치지 않도록 패딩 추가 */
+}
+.foot{
+    margin-bottom: 15px;
+}
+.foot img{
+    width: 80px;
+    height: 30px;
+}

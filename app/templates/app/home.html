@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>matZipCloud</title>
+    {% load static %}
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+</head>
+<body>
+    {% include 'app/loading.html' %}
+    {% load static %}
+    <nav class="navbar">
+        <i class="fas fa-bars"></i>
+        <h1>matZipCloud</h1>
+        <i class="fas fa-user"></i>
+    </nav>
+    <div class="container">
+        <div class="logo mt-5">
+            <img src="{% static 'images/matZip-baseLogo.png' %}" alt="matZip Logo">
+        </div>
+        <div class="search-bar mt-5">
+            <i class="fas fa-search"></i>
+            <form action="{% url 'app:search_result' %}" method="get">
+                <input type="text" name="query" class="form-control" placeholder="">
+            </form>
+        </div>
+        <div class="keywords">
+            <p>인기 키워드</p>
+            <a href="{% url 'app:search_result' %}?query=맛집">맛집</a>
+            <a href="{% url 'app:search_result' %}?query=주변 맛집">주변 맛집</a>
+            <a href="{% url 'app:search_result' %}?query=주변 술집">주변 술집</a>
+        </div>
+    </div>
+    <footer class="mt-5 foot">
+        <p>(MATZIPCLOUD)</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

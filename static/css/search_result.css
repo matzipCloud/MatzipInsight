@@ -1,0 +1,244 @@
+body {
+    background-color: #fbfbe8;
+    text-align: center;
+}
+/* 로딩 페이지 스타일 */
+#loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    display: none;
+    z-index: 1000; /* 로딩 페이지의 z-index 값 */
+    justify-content: center;
+    align-items: center;
+}
+
+/* 로딩 페이지가 활성화된 경우 */
+body.loading #loading {
+    display: flex;
+}
+
+/* 전체 화면에서 스크롤 비활성화 */
+body.loading {
+    overflow: hidden;
+}
+
+/* 네비게이션 바 스타일 */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 2000; /* 네비게이션 바의 z-index 값, 로딩 페이지보다 높음 */
+}
+
+/* 핑의 기본 스타일 */
+.custom-pin {
+    position: relative;
+    display: inline-block;
+    padding: 5px 8px;
+    background: #fff; /* 배경색을 흰색으로 설정 */
+    border: 2px solid #e6dff0; /* 보더 색상과 두께 */
+    border-radius: 12px; /* 둥근 모서리 */
+    color: #000; /* 텍스트 색상 */
+    font-size: 14px;
+    font-weight: bold; /* 텍스트 두께 */
+    width: auto; /* 너비 자동 조절 */
+    max-width: 150px; /* 최대 너비 */
+    white-space: nowrap; /* 텍스트 줄 바꿈 방지 */
+    overflow: hidden; /* 넘치는 텍스트 숨기기 */
+    text-overflow: ellipsis; /* 텍스트가 길 경우 "..."으로 표시 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* 그림자 추가 */
+}
+
+/* 핑의 말풍선 꼬리 */
+.custom-pin::after {
+    content: '';
+    position: absolute;
+    bottom: -10px; /* 말풍선 본체와 간격 조정 */
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 10px;
+    border-style: solid;
+    border-color: #fff transparent transparent transparent; /* 꼬리의 색상과 투명도 */
+}
+
+/* 말풍선 본체의 오버플로우 문제 해결 */
+.custom-pin-container {
+    position: relative;
+    display: inline-block;
+}
+
+.custom-pin {
+    position: relative;
+    z-index: 1; /* 말풍선 본체가 꼬리보다 위에 있도록 설정 */
+}
+
+/* 말풍선 꼬리의 위치를 조정하기 위한 컨테이너 */
+.custom-pin-container::after {
+    content: '';
+    position: absolute;
+    bottom: -10px; /* 말풍선 본체와 간격 조정 */
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 10px;
+    border-style: solid;
+    border-color: #fff transparent transparent transparent; /* 꼬리의 색상과 투명도 */
+    z-index: 0; /* 꼬리가 본체 뒤에 있도록 설정 */
+}
+
+
+.navbar h1 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+.search-bar {
+    margin: 40px 0 40px auto;
+    max-width: 350px;
+    position: relative;
+}
+.search-bar input {
+    width: 100%;
+    height: 50px;
+    padding: 10px;
+    border-radius: 150px; /* 둥근 모서리 */
+    border: 1px solid #ccc;
+    padding-right: 40px; /* 돋보기 아이콘 공간 확보 */
+}
+.search-bar .fa-search {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #888;
+}
+.white-container{
+    padding: 20px;
+    border-radius: 20px;
+    background-color: white;
+}
+.sidebar {
+    position: fixed;
+    top: 60px; /* Adjust based on your navbar height */
+    left: 0;
+    width: 60px;
+    height: calc(100% - 60px); /* Adjust based on your navbar height */
+    background-color: white;
+    padding: 10px;
+}
+.sidebar .btn {
+    width: 100%;
+    margin-bottom: 10px;
+}
+.content {
+    margin-top: 80px; /* 네비게이션 바 아래로 충분히 공간 주기 */
+    padding-left: 80px; /* 사이드바와 겹치지 않도록 패딩 추가 */
+}
+.header-image {
+    width: 100%;
+    height: 200px;
+    background-color: #ccc;
+    position: relative;
+    text-align: left;
+    padding: 20px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 15px; /* 모서리 둥글게 */
+    box-shadow: inset 0 -50px 50px -20px rgba(0,0,0,0.5); /* 그림자 효과 */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* 하단 정렬 */
+    z-index: 10;
+}
+.header-image h2 {
+    font-weight: bold;
+    color: white;
+}
+.header-image p {
+    color: white;
+}
+.header-content {
+    color: white;
+}
+.header-buttons .btn {
+    margin-right: 10px;
+    background-color: white;
+    color: #6f42c1; /* 버튼 아이콘과 텍스트 색상 */
+    border: none;
+    border-radius: 10px;
+}
+.header-buttons .btn i {
+    margin-right: 5px;
+}
+
+.sort-buttons {
+    padding: 20px;
+    display: inline-flex;
+    overflow: hidden;
+}
+.sort-buttons button {
+    border: 1px solid #888;
+    padding: 5px 30px;
+    cursor: pointer;
+    background-color: transparent;
+}
+.sort-buttons .sort-left{
+    border-radius: 50px 0 0 50px;
+}
+.sort-buttons .sort-right{
+    border-radius: 0 50px 50px 0;
+}
+.sort-buttons button.active {
+    background-color: #e6dff0;
+}
+.sort-buttons button:not(:last-child) {
+    border-right: 1px solid #ccc;
+}
+.item-list .item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #fff;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+.item img {
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+    margin-right: 10px;
+}
+.item .content {
+    width: 80%;
+    margin: auto 0 auto 0;
+    text-align: left;
+    flex-grow: 1;
+    justify-content: start;
+}
+.item .content h5 {
+    width: 100%;
+    margin-left: 0;
+}
+.item .content p {
+    width: 100%;
+    margin-left: 0;
+    color: #888;
+}
+.foot{
+    margin-bottom: 15px;
+}
+.foot img{
+    width: 80px;
+    height: 30px;
+}

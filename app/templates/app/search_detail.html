@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>matZipCloud</title>
+    {% load static %}
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/search_detail.css' %}">
+</head>
+<body>
+    {% include 'app/loading.html' %}
+    {% load static %}
+    <nav class="navbar">
+        <i class="fas fa-bars"></i>
+        <h1>matZipCloud</h1>
+        <i class="fas fa-user"></i>
+    </nav>
+    <div class="sidebar">
+        <button class="btn btn-danger btn-circle"><i class="fas fa-plus"></i></button>
+    </div>
+    <div class="container content">
+        <div class="search-bar">
+            <form action="{% url 'app:search_result' %}" method="get">
+                <input type="text" name="query" class="form-control" value="{{ query }}" placeholder="맛집 검색">
+                <i class="fas fa-search"></i>
+            </form>
+        </div>
+        <div class="white-container">
+            {% if result %}
+                <div class="sub-nav">
+                    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                    <p>{{ result.Name }}</p>
+                </div>
+
+                <div class="main-content">
+                    <img src="{{ result.thumUrl }}">
+                    <div class="content-detail">
+                        <h5>{{ result.Name }}</h5>
+                        <p>{{ result.Address }}</p>
+                        <p>{{ result.Category }}</p>
+                        <button id="directions-button">길찾기 연결</button>
+                    </div>
+                </div>
+            
+                <div class="graph-container">
+                    <img class="graph" src="{% static graph %}" alt="bar graph">
+                </div>
+            
+                <div class="cloud-Img">
+                    <div class="cloud-item">
+                        <h6>☁️ 긍정 워드클라우드</h6>
+                        {% if positive_img %}
+                        <img src="{% static positive_img %}" alt="positive_img">
+                        {% else %}
+                        <img class="cloud-none" src="{% static 'images/Happy Cloud.png' %}" alt="HappyCloud">
+                        {% endif %}
+                    </div>
+                    <div class="cloud-item">
+                        <h6>☁️ 부정 워드클라우드</h6>
+                        {% if negative_img %}
+                        <img src="{% static negative_img %}" alt="negative_img">
+                        {% else %}
+                        <img class="cloud-none" src="{% static 'images/Sad Cloud.png' %}" alt="SadCloud">
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="review-container">
+                    <div class="review-column">
+                        <div class="review-nav">
+                            <p>최근 긍정 리뷰 ({{ positiveness|length }}개)</p>
+                            <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                        </div>
+                        <div class="review-list">
+                            {% if positiveness %}
+                                {% for positive in positiveness %}
+                                <div class="review-item">
+                                    <div class="content">
+                                        <h5>{{ positive.nickname }}</h5>
+                                        <p>{{ positive.content }}</p>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            {% else %}
+                                <div class="review-item">
+                                    <div class="content">
+                                        <p>긍정 리뷰가 없습니다 :)</p>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="review-column">
+                        <div class="review-nav">
+                            <p>최근 부정 리뷰 ({{ negativeness|length }}개)</p>
+                            <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                        </div>
+                        <div class="review-list">
+                            {% if negativeness %}
+                                {% for negative in negativeness %}
+                                <div class="review-item">
+                                    <div class="content">
+                                        <h5>{{ negative.nickname }}</h5>
+                                        <p>{{ negative.content }}</p>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            {% else %}
+                                <div class="review-item">
+                                    <div class="content">
+                                        <p>부정 리뷰가 없습니다 :(</p>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                
+            {% else %}
+                <p>레스토랑 정보가 없습니다.</p>
+            {% endif %}
+        </div>
+    </div>
+    <footer class="mt-5 foot">
+        <img src="{% static 'images/matZip-textLogo.png' %}" alt="matZip textLogo">
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="{% static 'js/sort-buttons.js' %}"></script>
+    <script>
+        document.getElementById('directions-button').addEventListener('click', function() {
+            var destination = '{{ result.Address }}';
+            var url = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(destination)}`;
+            window.open(url, '_blank');
+        });
+
+        window.addEventListener('beforeunload', function(){ 
+            fetch('{% url 'app:delete_review_file' result.id %}', {method: 'DELETE'});
+        });
+        window.addEventListener('load', function() {
+            document.getElementById('loading').style.display = 'none';
+        });
+    </script>
+</body>
+</html>

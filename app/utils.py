@@ -119,7 +119,7 @@ def sentiment_cloud(data):
 
 def revisit_bargraph(data):
 
-    data['revisit'] = data['revisit'].str.extract('(\d+)')
+    data['revisit'] = data['revisit'].str.extract('(\d+)').astype(int)
 
     #폰트설정
     font_path='C:/Windows/Fonts/gulim.ttc'

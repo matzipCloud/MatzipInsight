@@ -3,6 +3,7 @@ import os
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.font_manager as fm
 from wordcloud import WordCloud
 from konlpy.tag import Okt
 import PIL
@@ -90,7 +91,7 @@ def analyze_sentiment(data):
         else: return 1
     print("데이터 불러오기 중")
     #파일 불러오기
-    df = pd.DataFrame(data)
+    df = data
     print("감성분석 중")
     # 각 행에 대해 감성 분석 수행
     df['sentiment'] = df['content'].apply(get_sentiment)
@@ -115,3 +116,31 @@ def sentiment_cloud(data):
         n_cloud = create_wordcloud(negative_df, "negative_cloud.png")
 
     return positive_df,negative_df ,p_cloud, n_cloud
+
+def revisit_bargraph(data):
+
+    data['revisit'] = data['revisit'].str.extract('(\d+)').astype(int)
+
+    #폰트설정
+    font_path='C:/Windows/Fonts/gulim.ttc'
+    fontprop = fm.FontProperties(fname=font_path)
+    plt.rc('font', family=fontprop.get_name())
+
+    #방문 횟수별로 그룹화하여 세기
+    visit_count = data['revisit'].value_counts().sort_index()
+
+    plt.figure(figsize=(10,4))
+    visit_count.plot(kind='bar', color='thistle')
+
+    plt.xlabel('재방문 횟수')
+    plt.ylabel('명')
+    plt.title('재방문 횟수별 빈도수')
+
+    #파일저장
+    file_name = 'bargraph.png'
+    file_path = os.path.join('static/images/', file_name)
+    plt.savefig(file_path, format='png')
+    plt.close()
+
+    return file_name
+

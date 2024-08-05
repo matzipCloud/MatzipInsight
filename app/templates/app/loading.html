@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>loading-page</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/loading.css' %}">
+</head>
+<body>
+    <div id="loading">
+        <img src="{% static 'gif/loading.gif' %}" alt="loading">
+        <h5>정보를 가져오는 중입니다......</h5>
+        <p>잠시만 기다려주세요</p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loading_page = document.getElementById('loading');
+            loading_page.style.display = 'none';
+        });
+    </script>
+    
+</body>
+</html>

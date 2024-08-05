@@ -85,6 +85,18 @@ body {
     border-radius: 50px;
     padding: 8px 25px;
 }
+.graph-container {
+    width: 100%;
+    display: flex;
+    justify-content: center; /* 가운데 정렬 */
+    margin-bottom: 20px; /* 아래쪽 여백 추가 */
+    box-sizing: border-box; /* 패딩과 테두리를 포함하여 크기 계산 */
+}
+
+.graph {
+    width: 100%; /* 컨테이너의 너비에 맞게 조정 */
+    display: block; /* block 요소로 설정 */
+}
 
 /* 워드 클라우드 이미지 스타일 */
 .cloud-Img {
@@ -100,11 +112,15 @@ body {
     text-align: center; /* 텍스트를 중앙 정렬 */
     margin-bottom: 20px;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .cloud-item h6 {
     position: absolute;
-    top: 30px; /* 이미지 위에 겹쳐지도록 위치 조정 */
+    top: 10px; /* 이미지 위에 겹쳐지도록 위치 조정 */
     left: 50%;
     transform: translateX(-50%);
     background-color: rgba(225, 212, 237, 0.7); /* 반투명 배경색으로 텍스트 가독성 향상 */
@@ -120,6 +136,12 @@ body {
     max-width: 100%;
     height: auto;
     display: block; /* 이미지가 부모 요소의 크기에 맞게 조정 */
+}
+.cloud-item .cloud-none {
+    width: 45%;
+    height: 40%;
+    margin: auto auto;
+    margin-top: 80px;
 }
 
 /* 화면이 작아질 때 세로 정렬 */

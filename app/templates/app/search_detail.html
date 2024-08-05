@@ -43,14 +43,18 @@
                         <button id="directions-button">길찾기 연결</button>
                     </div>
                 </div>
-                
+            
+                <div class="graph-container">
+                    <img class="graph" src="{% static graph %}" alt="bar graph">
+                </div>
+            
                 <div class="cloud-Img">
                     <div class="cloud-item">
                         <h6>☁️ 긍정 워드클라우드</h6>
                         {% if positive_img %}
                         <img src="{% static positive_img %}" alt="positive_img">
                         {% else %}
-                        <img src="{% static 'images/Happy Cloud.png' %}" alt="HappyCloud">
+                        <img class="cloud-none" src="{% static 'images/Happy Cloud.png' %}" alt="HappyCloud">
                         {% endif %}
                     </div>
                     <div class="cloud-item">
@@ -58,7 +62,7 @@
                         {% if negative_img %}
                         <img src="{% static negative_img %}" alt="negative_img">
                         {% else %}
-                        <img src="{% static 'images/Sad Cloud.png' %}" alt="SadCloud">
+                        <img class="cloud-none" src="{% static 'images/Sad Cloud.png' %}" alt="SadCloud">
                         {% endif %}
                     </div>
                 </div>
@@ -66,7 +70,7 @@
                 <div class="review-container">
                     <div class="review-column">
                         <div class="review-nav">
-                            <p>긍정 최근 리뷰 (5개)</p>
+                            <p>최근 긍정 리뷰 ({{ positiveness|length }}개)</p>
                             <i class="fa fa-arrow-right" aria-hidden="true"></i>
                         </div>
                         <div class="review-list">
@@ -90,7 +94,7 @@
                     </div>
                     <div class="review-column">
                         <div class="review-nav">
-                            <p>부정 최근 리뷰 (5개)</p>
+                            <p>최근 부정 리뷰 ({{ negativeness|length }}개)</p>
                             <i class="fa fa-arrow-right" aria-hidden="true"></i>
                         </div>
                         <div class="review-list">

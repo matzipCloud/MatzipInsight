@@ -20,11 +20,10 @@
 ### 📄 프로젝트 자료
 
 - **Google Docs**에서 전체적인 프로젝트 자료 보러가기:
-  [![Google Docs](https://img.shields.io/badge/Google%20Docs-4285F4?style=for-the-badge&logo=googledocs&logoColor=white)](https://docs.google.com/document/d/1SQ5YhRYlxYh2oUlUc6WO0hkd465DG-5JBDu5U2qfAW8)
+  [![Google Docs](https://img.shields.io/badge/Google%20Docs-4285F4?style=for-the-badge&logo=googledocs&logoColor=white)](https://www.notion.so/MATZIP-CLOUD-b79b3160d1f741cba16c8349ba84fbca)
 
 - **PDF 프레젠테이션** 자료 보러가기:
-  [![PDF](https://img.shields.io/badge/PDF%20Presentation-FF0000?style=for-the-badge&logo=pdf&logoColor=white)]([matZipCloud_프레젠테이션_pdf.pdf](https://github.com/user-attachments/files/16518653/matZipCloud_._pdf.pdf)
-)
+  [![PDF](https://img.shields.io/badge/PDF%20Presentation-FF0000?style=for-the-badge&logo=pdf&logoColor=white)](https://file.notion.so/f/f/75f73b17-a95e-44bc-a6a8-223faefb4ec7/ad2e9ef1-72f6-4583-b167-c0e9d3cd118a/matZipCloud_pdf.pdf?table=block&id=93f99655-2ed0-470e-9ebc-1c7af3abb456&spaceId=75f73b17-a95e-44bc-a6a8-223faefb4ec7&expirationTimestamp=1723104000000&signature=iedJvZ8kz6aFvbpZ5VXpUOYVqfVpbEv4IdIw6Kitw5Y&downloadName=matZipCloud_pdf.pdf)
 
 <br/>
 

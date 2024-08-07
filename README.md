@@ -1,26 +1,27 @@
 # 📌 맛집 탐색의 새로운 기준! 
 ### 리뷰 데이터로 찾는 최고의 음식점 - matZipCloud
 
-![178shots_so](https://github.com/user-attachments/assets/32923cff-ea6d-4b9b-8657-e727d88b1850)
+<br/>
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/c24820eb-1b30-4446-988f-0d0d99ff5ab0" width="950" height="600">
+</p>
+<br/>
 
 - Test URL :
 
 <br/>
 
 ## 프로젝트 진행 및 작업 관리
+<br/>
 
 ### 📌 진행 사항 확인
 
 - **Notion**에서 자세한 진행사항 보러가기:
   [![Notion](https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=notion&logoColor=white)](https://welcomerain4.notion.site/MATZIP-CLOUD-46d439daf0154e1a8b957cec6135a87a)
 
-  <br/>
 
 ### 📄 프로젝트 자료
-
-- **Google Docs**에서 전체적인 프로젝트 자료 보러가기:
-  [![Google Docs](https://img.shields.io/badge/Google%20Docs-4285F4?style=for-the-badge&logo=googledocs&logoColor=white)](https://www.notion.so/MATZIP-CLOUD-b79b3160d1f741cba16c8349ba84fbca)
 
 - **PDF 프레젠테이션** 자료 보러가기:
   [![PDF](https://img.shields.io/badge/PDF%20Presentation-FF0000?style=for-the-badge&logo=pdf&logoColor=white)](https://file.notion.so/f/f/75f73b17-a95e-44bc-a6a8-223faefb4ec7/ad2e9ef1-72f6-4583-b167-c0e9d3cd118a/matZipCloud_pdf.pdf?table=block&id=93f99655-2ed0-470e-9ebc-1c7af3abb456&spaceId=75f73b17-a95e-44bc-a6a8-223faefb4ec7&expirationTimestamp=1723104000000&signature=iedJvZ8kz6aFvbpZ5VXpUOYVqfVpbEv4IdIw6Kitw5Y&downloadName=matZipCloud_pdf.pdf)
@@ -28,7 +29,6 @@
 <br/>
 
 ## 프로젝트 소개
-
 - 사용자는 네이버 리뷰를 크롤링하여 데이터를 수집할 수 있습니다.
 - OpenAI API를 사용하여 리뷰의 감정을 분석합니다.
 - 분석된 리뷰는 긍정적 및 부정적으로 나뉘어 시각적으로 표현됩니다.
@@ -75,7 +75,6 @@
 <br/>
 
 ## 2. 주요 기능
-
 - 네이버 검색 결과와 리뷰 데이터를 크롤링으로 수집
 - 맛집 위치 제공 및 길찾기 기능
 - 긍정적 / 부정적 리뷰 분류
@@ -115,7 +114,6 @@ C:.
 <br/>
 
 ## 4. 개발 기간
-
 - 전체 개발 기간 : 2024.07.18 ~ 2024.08.04
 - 기획 : 2024.07.18 ~ 2024.07.19
 - UI 구현 : 2024.07.20 ~ 2024.07.23

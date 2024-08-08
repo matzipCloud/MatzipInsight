@@ -12,7 +12,6 @@
     <script>
         var mapData = {{ results|slice:":5" | safe }};  // 상위 5개 데이터만 포함
     </script>
-    <script src="static/js/map.js"></script>
 </head>
 <body>
     {% include 'app/loading.html' %}

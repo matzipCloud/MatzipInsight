@@ -81,12 +81,6 @@ def search_result(request):
                 'distance': distance,
                 'reviews': reviews
             })
-        
-        # 정렬 기준에 따라 결과 정렬
-        if sort == 'reviews':
-            results.sort(key=lambda x: x.get('reviews', 0), reverse=True)  # 리뷰 수를 기준으로 정렬
-        else:
-            results.sort(key=lambda x: x.get('distance', float('inf')))  # 거리순으로 정렬
 
         # 검색 결과를 context에 추가
         context['results'] = results

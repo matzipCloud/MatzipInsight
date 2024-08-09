@@ -41,7 +41,7 @@
 
 | 김단비 | 나현주 |
 |:---:|:---:|
-| <img src="https://github.com/user-attachments/assets/8f38c13b-0cb7-47ab-ae17-a8f3f7452de2" width="300" height="230"> | <img src="https://github.com/ArtifinityTeam/Artifinity-PhotoBoard-SpringBoot/assets/149933307/2c409a25-2858-456b-8d37-cc3635d27efe" width="300" height="230"> |
+| <img src="https://github.com/user-attachments/assets/8f38c13b-0cb7-47ab-ae17-a8f3f7452de2" width="300" height="300"> | <img src="https://github.com/ArtifinityTeam/Artifinity-PhotoBoard-SpringBoot/assets/149933307/2c409a25-2858-456b-8d37-cc3635d27efe" width="300" height="350"> |
 | [@welcomerain4](https://github.com/welcomerain4) | [@HyeonJooooo](https://github.com/HyeonJooooo) |
 
 <br/>

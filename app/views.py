@@ -17,8 +17,6 @@ except ImportError as e:
     print("Pandas could not be imported:", e)
 
 
-# Create your views here.
-
 def home(request):
     return render(request, 'app/home.html')
 
@@ -52,7 +50,7 @@ def search_result(request):
         response = requests.get(url, headers=headers, params=params)
         response.raise_for_status()  # 요청 실패 시 에러 발생
         data = response.json()
-        
+
 
         # 검색 결과를 저장할 리스트 초기화
         results = []
@@ -68,13 +66,13 @@ def search_result(request):
             longitude = item.get('x')  # API 응답에서 longitude 값을 가져옴
             distance = item.get('distance', float('inf'))  # 거리 정보 가져오기 (가정)
             reviews = item.get('reviews', 0)  # 리뷰 수 정보 가져오기 (가정)
-            
+
 
             results.append({
-                'id': id, 
-                'Name': name, 
-                'Address': address, 
-                'Category': category, 
+                'id': id,
+                'Name': name,
+                'Address': address,
+                'Category': category,
                 'thumUrl': thumUrl,
                 'latitude': latitude,
                 'longitude': longitude,
@@ -82,9 +80,15 @@ def search_result(request):
                 'reviews': reviews
             })
 
+        # 정렬 기준에 따라 결과 정렬
+        if sort == 'reviews':
+            results.sort(key=lambda x: x.get('reviews', 0), reverse=True)  # 리뷰 수를 기준으로 정렬
+        else:
+            results.sort(key=lambda x: x.get('distance', float('inf')))  # 거리순으로 정렬
+
         # 검색 결과를 context에 추가
         context['results'] = results
-        
+
         # .env 파일 context에 추가
         load_dotenv()
         ncpClientId = os.environ.get('NAVER_CLIENT_ID')
@@ -128,7 +132,7 @@ def search_detail(request, id):
         driver.find_element(By.TAG_NAME, 'body').send_keys(Keys.END)
 
         # 최대 n개의 리뷰를 가져오기 위한 루프
-        while len(reviews) < 500:
+        while len(reviews) < 100:
             try:
                 driver.find_element(By.XPATH,
                                     '//*[@id="app-root"]/div/div/div/div[6]/div[2]/div[3]/div[2]/div/a').click()
@@ -140,16 +144,16 @@ def search_detail(request, id):
             # 크롤링
             html = driver.page_source
             bs = BeautifulSoup(html, 'html.parser')
-            review_elements = bs.select('li.owAeM')
+            review_elements = bs.select('li.pui__X35jYm')
 
             for review in review_elements:
-                if len(reviews) >= 500:
+                if len(reviews) >= 100:
                     break
                 # 개별 콘텐츠 선택하여 읽어들이는 부분
-                nickname = review.select_one('span.P9EZi')
-                content = review.select_one('span.zPfVt')
-                date = review.select_one('span.CKUdu > span.place_blind:nth-of-type(2)')
-                revisit = review.select_one('span.CKUdu:nth-of-type(2)')
+                nickname = review.select_one('span.pui__NMi-Dp')
+                content = review.select_one('div.pui__vn15t2')
+                date = review.select_one('div.pui__QKE5Pr time')
+                revisit = review.select_one('div.pui__QKE5Pr span.pui__gfuUIT:nth-of-type(2)')
 
                 # 예외 처리
                 nickname = nickname.text if nickname else ''
@@ -163,7 +167,9 @@ def search_detail(request, id):
         # context['reviews'] = reviews[:5]
         print("크롤링 완료")
 
+        print(reviews)  # 리뷰 데이터 확인
         df_reviews = pd.DataFrame(reviews)
+
         #재방문 바 그래프
         context['graph'] = 'images/'+revisit_bargraph(df_reviews)
 
